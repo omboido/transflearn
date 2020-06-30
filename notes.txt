@@ -1,0 +1,128 @@
+fazer com conjunto de validação
+peguem o de treino e dividam em treino e validação
+usem o conjunto de teste só para teste
+a vgg recebe imagens de 224x224
+vou usar a vgg16 pré-treinada
+
+Tentar transformar sem random resized - usar só resize, padding e tals
+TRANSFORMS
+
+
+v como alterar a camada linear classificadora de vgg16 = models.vgg16(pretrained=True)?
+
+print(vgg.classifier[6].in_features)
+print(vgg.classifier[6].out_features)
+
+^ essa célula vai dar a luz de como resolver o problema do projeto 1
+
+pegar o parâmetro da última camada classifier[6]
+
+
+v como alterar essa camada inteira?
+
+vgg16.classifier[6] = nn.Linear(..........)
+
+^ é por aí
+
+
+
+
+
+v em import torch.nn as nn
+
+duas, três, quatro linhas?
+
+adicionar a última camada que mapeia n_inputs para 5 classes de saída: roses, dandelion....
+
+analisar classifier e ver quantos neurônios vão ENTRAR na última camada - e 5 saem
+
+novas camas vêm com require_grad = True, então, não precisa congelar
+
+Notar que só foram congeladas as features
+Então, congelar TAMBÉM os classifiers que sobraram do modelo pré-treinado
+
+
+Pode-se modificar o LR(learning rate) para melhorar o resultado de acurácia
+E pode-se modificar o otimizador também (usar Nadam ou algo parecido) - ver otimizadores disponíveis no PyTorch
+
+
+
+Treinamento
+códigos da disciplina anterior
+
+2 épocas para testar o modelo - depois usar a quantidade necessária para treinar a rede apropriadamente
+
+Vamos treinar a rede.
+
+Exercício: Aqui, vou deixar por sua conta a implementação do código de treinamento. Basicamente, o código aqui não difere muito do loop de treinamento que sempre é feito com o PyTorch.
+
+Note que não estamos utilizando conjunto de validação aqui.
+
+Opcionalmente, você pode criar o conjunto de validação e realizar o treinamento como deveria ser (recomendo que você faça assim). O conjunto de validação deve ser extraído do conjunto de treinamento, não de teste. Garanta que os conjuntos estejam sempre balanceados.
+Não se esqueça de plotar as linhas de loss de treino e validação e de implementar o early stopping. Imprima sua acurácia final, matriz de confusão e suas métricas. Teste o seu loop com apenas duas épocas, mas quando estiver seguro que o código está correto,
+
+ADICIONAR EARLY STOPPING
+aumente as épocas até que o treinamento seja sempre interrompido pelo early stopping e não pelo fim das épocas.
+
+
+Testando
+
+Adapte esse código para obter as métricas pedidas no exercício.
+fazer if/else para fazer matriz de confusão
+
+
+
+
+
+
+https://github.com/udacity/deep-learning-v2-pytorch/blob/master/transfer-learning/Transfer_Learning_Solution.ipynb
+
+
+
+
+
+
+DESAFIO
+Pesquise sobre diferentes arquiteturas de redes e proponha um método de classificação de flores que seja o melhor da turma (tendo a métrica de acurácia como referência). Você precisa utilizar necessariamente este dataset.
+
+Aqui, vale tudo!
+
+Treinar redes do zero,
+utilizar transfer learning,
+utilizar outros métodos etc.
+
+Utilize tudo ao seu alcance para obter a melhor acurácia sobre o conjunto de testes deste notebook.
+Você está amarrado a três coisas:
+- Usar necessariamente SÓ os dados da pasta train para treinar e validar
+- o conjunto de testes vai gerar acurácia.
+
+
+Não se esqueça também de imprimir, além da acurácia, todas as demais informações que foram pedidas no exercício deste notebook.
+
+Aqui, é obrigatório o uso do conjunto de validação no processo de treinamento. O conjunto de validação deve ser extraído do conjunto de treinamento, não de teste. 
+Garanta que os conjuntos estejam sempre balanceados.
+
+O grupo que conseguir a maior acurácia receberá um ponto extra neste exercício.
+
+
+
+>>> for epoch in range(10):
+>>>     train(...)
+>>>     val_loss = validate(...)
+>>>     # Note that step should be called after validate()
+>>>     scheduler.step(val_loss)'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
